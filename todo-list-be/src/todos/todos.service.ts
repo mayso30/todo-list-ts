@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class TodosService {
@@ -28,13 +29,21 @@ export class TodosService {
 
       findAll(status?: 'ACTIVE' | 'COMPLETED'){
         if(status) {
-            return this.todos.filter(todo => todo.status === status)
+            const statusArray = this.todos.filter(todo => todo.status === status)
+
+            if(statusArray.length === 0){
+                throw new NotFoundException('todo status not found')
+            } else {
+                return statusArray
+            }
         }
         return this.todos
       }
 
       findOne(id: number) {
         const todo = this.todos.find(todo => todo.id === id)
+
+        if(!todo) throw new NotFoundException("Todo Not Found")
 
         return todo
       }
