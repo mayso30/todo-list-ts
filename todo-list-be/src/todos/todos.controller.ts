@@ -1,7 +1,12 @@
-import { Controller, Param, Get, Post, Body, Patch, Delete, Query } from '@nestjs/common';
+import { Controller, Param, Get, Post, Body, Patch, Delete, Query, ParseIntPipe } from '@nestjs/common';
+import { TodosService } from './todos.service';
+import { CreateTodoDto } from './dto/create-todo.dto';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 
 @Controller('todos')
 export class TodosController {
+
+    constructor(private readonly todosService: TodosService) {}
 
 /*
     Add routes below:
@@ -14,32 +19,38 @@ export class TodosController {
 
     @Get()
     findAll(@Query('status') status?: 'ACTIVE' | 'COMPLETED') {
-        return []
+        return this.todosService.findAll(status)
     }
 
-    @Get('completed')
-    findAllCompleted() {
-        return []
-    }
+    // @Get('completed')
+    // findAllCompleted() {
+    //     return []
+    // }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return { id }
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        return this.todosService.findOne(id)
     }
+    
+    //Without using DTO
+    // @Post() 
+    // create(@Body() todo: {name: string, status: 'ACTIVE' | 'COMPLETED', details: string}) {
+    //     return this.todosService.create(todo)
+    // }
 
     @Post() 
-    create(@Body() todo: {}) {
-        return todo
+    create(@Body() todo: CreateTodoDto) {
+        return this.todosService.create(todo)
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() todoUpdate: {}) {
-        return { id, ...todoUpdate}
+    update(@Param('id', ParseIntPipe) id: number, @Body() todoUpdate: UpdateTodoDto) {
+        return this.todosService.update(id, todoUpdate)
     }
 
     @Delete(':id')
-    delete(@Param('id') id: string) {
-        return { id }
+    delete(@Param('id', ParseIntPipe) id: number) {
+        return this.todosService.delete(id)
     }
 
 }
