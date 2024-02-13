@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import FourOFour from './pages/FourOFour';
 import TodoList from './pages/TodoList';
+import CompletedList from './pages/CompletedList';
 
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/todos" element={<TodoList />} />
+            <Route path="/completed" element={<CompletedList />} />
             <Route path="*" element={<FourOFour />} />
           </Routes>
         </main>
