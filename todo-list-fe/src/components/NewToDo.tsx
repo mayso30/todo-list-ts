@@ -12,7 +12,7 @@ const InputBox = () => {
     <div>
       <FormControl>
         <FormLabel>Enter a Todo</FormLabel>
-          <Input />
+        <Input />
       </FormControl>
     </div>
   );

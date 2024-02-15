@@ -19,7 +19,7 @@ const CompletedList = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-      <h2>Completed Todos</h2>
+      <h1>Completed Todos</h1>
       <CompletedTodos todos={completedTodos} refreshTodos={fetchCompletedTodos} />
     </div>
   );

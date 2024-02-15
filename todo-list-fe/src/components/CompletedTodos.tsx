@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Todo } from '../models';
-import TodoModal from './TodoModal'; 
-import { useDisclosure, List, ListItem, Text } from '@passfort/castle'; 
+import React, { useState } from "react";
+import { Todo } from "../models";
+import TodoModal from "./TodoModal";
+import { useDisclosure, List, ListItem, Text } from "@passfort/castle";
 
 interface Props {
   todos: Todo[];
@@ -18,11 +18,15 @@ const CompletedTodos: React.FC<Props> = ({ todos, refreshTodos }) => {
   };
 
   return (
-    <div>
+    <div className="list">
       <List>
-        {todos.map(todo => (
-          <ListItem key={todo.id} onClick={() => handleTodoClick(todo)} style={{ cursor: 'pointer' }}>
-            <Text>{todo.name}</Text> 
+        {todos.map((todo) => (
+          <ListItem
+            key={todo.id}
+            onClick={() => handleTodoClick(todo)}
+            style={{ cursor: "pointer" }}
+          >
+            <Text>{todo.name}</Text>
           </ListItem>
         ))}
       </List>
@@ -31,7 +35,7 @@ const CompletedTodos: React.FC<Props> = ({ todos, refreshTodos }) => {
           isOpen={isOpen}
           onClose={() => {
             onClose();
-            setSelectedTodo(null); 
+            setSelectedTodo(null);
           }}
           todo={selectedTodo}
           refreshTodos={refreshTodos}

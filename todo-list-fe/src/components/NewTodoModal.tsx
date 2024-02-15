@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { ModalForm, Button, FormControl, FormLabel, Input, FormControls } from '@passfort/castle';
+import React, { useState } from "react";
+import axios from "axios";
+import {
+  ModalForm,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  FormControls,
+} from "@passfort/castle";
 
 interface NewTodoFormProps {
   isOpen: boolean;
@@ -8,20 +15,25 @@ interface NewTodoFormProps {
   refreshTodos: () => void;
 }
 
-const NewTodoForm: React.FC<NewTodoFormProps> = ({ isOpen, onClose, refreshTodos }) => {
-  const [name, setName] = useState('');
-  const [details, setDetails] = useState('');
+const NewTodoForm: React.FC<NewTodoFormProps> = ({
+  isOpen,
+  onClose,
+  refreshTodos,
+}) => {
+  const [name, setName] = useState("");
+  const [details, setDetails] = useState("");
   const API = process.env.REACT_APP_API_URL;
 
   const addTodo = () => {
-    axios.post(`${API}/todos`, { name, status: 'ACTIVE', details })
+    axios
+      .post(`${API}/todos`, { name, status: "ACTIVE", details })
       .then(() => {
-        refreshTodos(); 
-        onClose(); 
-        setName(''); 
-        setDetails('');
+        refreshTodos();
+        onClose();
+        setName("");
+        setDetails("");
       })
-      .catch((error) => console.error('Error:', error));
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
@@ -29,8 +41,8 @@ const NewTodoForm: React.FC<NewTodoFormProps> = ({ isOpen, onClose, refreshTodos
       isOpen={isOpen}
       onClose={() => {
         onClose();
-        setName(''); 
-        setDetails('');
+        setName("");
+        setDetails("");
       }}
       title="Create New Todo"
       renderFooter={() => (

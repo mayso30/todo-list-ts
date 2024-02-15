@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import TodoModal from './TodoModal'; 
-import { useDisclosure } from '@passfort/castle';
-import { Todo } from '../models';
+import React, { useState } from "react";
+import TodoModal from "./TodoModal";
+import { useDisclosure, List, ListItem, Text } from "@passfort/castle";
+import { Todo } from "../models";
 
 interface Props {
   todos: Todo[];
-  refreshTodos: () => void; 
+  refreshTodos: () => void;
 }
 
-const ActiveTodos: React.FC<Props> = ({ todos, refreshTodos }) => { 
+const ActiveTodos: React.FC<Props> = ({ todos, refreshTodos }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
 
@@ -19,13 +19,17 @@ const ActiveTodos: React.FC<Props> = ({ todos, refreshTodos }) => {
 
   return (
     <div>
-      <ul>
-        {todos.map(todo => (
-          <li key={todo.id} onClick={() => handleTodoClick(todo)} style={{ cursor: 'pointer' }}>
-            {todo.name}
-          </li>
+      <List>
+        {todos.map((todo) => (
+          <ListItem
+            key={todo.id}
+            onClick={() => handleTodoClick(todo)}
+            style={{ cursor: "pointer" }}
+          >
+            <Text>{todo.name}</Text>
+          </ListItem>
         ))}
-      </ul>
+      </List>
       {selectedTodo && (
         <TodoModal
           isOpen={isOpen}
@@ -34,7 +38,7 @@ const ActiveTodos: React.FC<Props> = ({ todos, refreshTodos }) => {
             setSelectedTodo(null);
           }}
           todo={selectedTodo}
-          refreshTodos={refreshTodos} 
+          refreshTodos={refreshTodos}
         />
       )}
     </div>

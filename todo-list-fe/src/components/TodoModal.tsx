@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, FormControl, FormLabel, Input, FormControls } from '@passfort/castle';
-import axios from 'axios';
-import { Todo } from '../models';
+import React, { useState, useEffect } from "react";
+import {
+  Modal,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  FormControls,
+} from "@passfort/castle";
+import axios from "axios";
+import { Todo } from "../models";
 
 interface TodoModalProps {
   isOpen: boolean;
   onClose: () => void;
   todo: Todo;
-  refreshTodos: () => void; 
+  refreshTodos: () => void;
 }
 
-const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, todo, refreshTodos }) => {
+const TodoModal: React.FC<TodoModalProps> = ({
+  isOpen,
+  onClose,
+  todo,
+  refreshTodos,
+}) => {
   const [name, setName] = useState(todo.name);
   const [details, setDetails] = useState(todo.details);
   const API = process.env.REACT_APP_API_URL;
@@ -24,21 +36,25 @@ const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, todo, refreshTod
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`${API}/todos/${todo.id}`, { name, details, status: todo.status });
-      refreshTodos(); 
-      onClose(); 
+      await axios.patch(`${API}/todos/${todo.id}`, {
+        name,
+        details,
+        status: todo.status,
+      });
+      refreshTodos();
+      onClose();
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
   const handleDelete = async () => {
     try {
       await axios.delete(`${API}/todos/${todo.id}`);
-      refreshTodos(); 
-      onClose(); 
+      refreshTodos();
+      onClose();
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -69,4 +85,3 @@ const TodoModal: React.FC<TodoModalProps> = ({ isOpen, onClose, todo, refreshTod
 };
 
 export default TodoModal;
-
