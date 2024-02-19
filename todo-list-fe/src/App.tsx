@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import FourOFour from './pages/FourOFour';
 import TodoList from './pages/TodoList';
 import CompletedList from './pages/CompletedList';
-
+import Table from './pages/Table';
 
 const App: React.FC = () => {
 
@@ -20,6 +20,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/todos" element={<TodoList />} />
             <Route path="/completed" element={<CompletedList />} />
+            <Route path="/table" element={<Table />} />
             <Route path="*" element={<FourOFour />} />
           </Routes>
         </main>

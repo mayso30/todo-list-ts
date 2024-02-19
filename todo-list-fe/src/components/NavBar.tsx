@@ -20,6 +20,9 @@ const NavBar = () => {
           <li>
             <Link to="/completed">Completed</Link>
           </li>
+          <li>
+            <Link to="/table">Table</Link>
+          </li>
         </ul>
       </div>
     </nav>

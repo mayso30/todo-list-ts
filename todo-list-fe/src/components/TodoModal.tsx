@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   FormControls,
+  Box,
 } from "@passfort/castle";
 import axios from "axios";
 import { Todo } from "../models";
@@ -48,6 +49,18 @@ const TodoModal: React.FC<TodoModalProps> = ({
     }
   };
 
+  const handleComplete = async () => {
+    try {
+      await axios.patch(`${API}/todos/${todo.id}`, {
+        status: "COMPLETED",
+      });
+      refreshTodos();
+      onClose();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const handleDelete = async () => {
     try {
       await axios.delete(`${API}/todos/${todo.id}`);
@@ -64,10 +77,12 @@ const TodoModal: React.FC<TodoModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       renderFooter={() => (
-        <>
+        //add space in between buttons
+        <Box>
+          <Button label="Complete" type="positive" onClick={handleComplete} />
           <Button label="Delete" type="negative" onClick={handleDelete} />
           <Button label="Save Changes" type="primary" onClick={handleUpdate} />
-        </>
+        </Box>
       )}
     >
       <FormControls>
